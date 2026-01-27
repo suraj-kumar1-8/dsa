@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        int i = n - 2;
+
+        // 1️⃣ Find first decreasing element
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+
+        // 2️⃣ If found, swap with next greater
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums[i], nums[j]);
+        }
+
+        // 3️⃣ Reverse remaining part
+        reverse(nums.begin() + i + 1, nums.end());
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    Solution sol;
+    sol.nextPermutation(nums);
+
+    cout << "Next Permutation: ";
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    return 0;
+}
